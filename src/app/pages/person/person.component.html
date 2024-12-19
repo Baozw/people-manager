@@ -1,0 +1,58 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="onBack()" aria-label="Back">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Person Details</span>
+</mat-toolbar>
+
+<div class="container">
+    @if (isLoading) {
+    <div class="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    } @else {
+    <div>
+        <mat-card>
+            <mat-card-title><img [src]="avatar" [alt]="personId">ID: {{ personId }}</mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="personForm" (ngSubmit)="save()">
+                    <mat-form-field class="full-width">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="first_name" />
+                        <mat-error
+                            *ngIf="personForm.get('first_name')?.hasError('required') && personForm.get('first_name')?.touched">
+                            First Name is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="last_name" />
+                        <mat-error
+                            *ngIf="personForm.get('last_name')?.hasError('required') && personForm.get('last_name')?.touched">
+                            Last Name is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" />
+                        <mat-error
+                            *ngIf="personForm.get('email')?.hasError('required') && personForm.get('email')?.touched">
+                            Email is required
+                        </mat-error>
+                        <mat-error
+                            *ngIf="personForm.get('email')?.hasError('email') && personForm.get('email')?.touched">
+                            Please enter a valid email
+                        </mat-error>
+                    </mat-form-field>
+
+                    <button mat-raised-button color="primary" type="submit">
+                        Save
+                    </button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    }
+</div>

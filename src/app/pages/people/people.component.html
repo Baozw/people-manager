@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+    <span>People Manager</span>
+</mat-toolbar>
+
+<div class="container">
+    @if (isLoading) {
+    <div class="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    } @else {
+    <div fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="center start">
+        @for (person of people; track person) {
+        <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33%" fxFlex="25%">
+            <mat-card class="person-card" (click)="viewPerson(person)">
+                <mat-card-header>
+                    <mat-card-title>{{ person.id }}. {{ person.first_name }} {{ person.last_name }}</mat-card-title>
+                </mat-card-header>
+                <img mat-card-image [src]="person.avatar" alt="{{ person.first_name }}" />
+                <mat-card-content>
+                    <p>Email: {{ person.email }}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        }
+    </div>
+
+    <div class="paginator-container">
+        <mat-paginator [length]="totalUsers" [pageSize]="perPage" [pageSizeOptions]="[perPage]"
+            [pageIndex]="currentPage - 1" (page)="onPageChange($event)">
+        </mat-paginator>
+    </div>
+    }
+</div>
